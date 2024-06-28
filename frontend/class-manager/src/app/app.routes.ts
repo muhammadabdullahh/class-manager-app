@@ -3,6 +3,7 @@ import { MainPageComponent } from './components/pages/main-page/main-page.compon
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { SignupPageComponent } from './components/pages/signup-page/signup-page.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: 'login-page',
         component: LoginPageComponent
+    },
+    {
+        path: 'signup-page',
+        component: SignupPageComponent
     }
 ];
