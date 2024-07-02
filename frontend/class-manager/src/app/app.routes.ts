@@ -4,6 +4,8 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { SignupPageComponent } from './components/pages/signup-page/signup-page.component';
+import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { ProfilePageComponent } from './components/pages/profile-page/profile-page.component';
 
 export const routes: Routes = [
     {
@@ -22,6 +24,14 @@ export const routes: Routes = [
                 component: FooterComponent
             },
         ]
+    },
+    {
+        path: 'home-page',
+        component: HomePageComponent, 
+    },
+    {
+        path: 'profile-page',
+        component: ProfilePageComponent
     },
     {
         path: 'login-page',

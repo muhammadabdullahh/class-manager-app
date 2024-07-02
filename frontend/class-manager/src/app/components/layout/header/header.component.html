@@ -1,44 +1,59 @@
-<nav class="bg-gray-100">
-    <div class="mx-3">
-      <div class="flex justify-between">
-        <div class="flex space-x-4">
-          <div>
-            <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-              <svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-                   viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-              <span class="font-bold ml-1">Class Manager</span>
-            </a>
-          </div>
-        </div>
-        <!-- secondary nav -->
-        <div class="md:flex items-center space-x-1 hidden">
-          <a href="/login-page" class="py-5 px-3">Login</a>
-          <a href="/signup-page"
-             class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-purple-600 hover:text-purple-800 rounded transition duration-300">Signup</a>
-        </div>
-        <!-- mobile button goes here -->
-        <div class="md:hidden flex items-center">
-          <button class="mobile-menu-button">
-            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                 stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16" />
+<nav #temp class="bg-gray-100">
+  <div class="mx-3">
+    <div class="flex justify-between">
+      <div class="flex space-x-4">
+        <div>
+          <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+            <svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
-          </button>
+            <span class="font-bold ml-1">Class Manager</span>
+          </a>
         </div>
       </div>
-    </div>
-  
-    <!-- mobile menu -->
-    <div class="mobile-menu md:hidden flex justify-center items-center text-center">
-      <div class="flex flex-col space-y-2 mb-2.5">
-        <a href="/login-page" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Login</a>
-        <a href="/signup-page"
-           class="py-2 px-4 bg-yellow-400 hover:bg-yellow-300 text-purple-600 hover:text-purple-800 rounded transition duration-300 block">Signup</a>
+
+      <!-- primary nav -->
+<!--       <div *ngIf="isLoggedIn()" class="hidden md:flex items-center space-x-1">
+        <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Home</a>
+        <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Courses</a>
+        <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Assignments</a>
+        <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Exams</a>
+      </div>
+ -->
+      <!-- secondary nav -->
+      <div *ngIf="!isLoggedIn()" class="hidden md:flex items-center space-x-1">
+        <a href="/login-page" class="py-5 px-3">Login</a>
+        <a href="/signup-page" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-purple-600 hover:text-purple-800 rounded transition duration-300">Signup</a>
+      </div>
+
+      <!-- profile button -->
+      <div *ngIf="isLoggedIn()" class="hidden md:flex relative items-center">
+        <p-menu #menu [popup]="true" [model]="items" appendTo='body'></p-menu>
+        <button pButton type="button" icon="pi pi-user" class="p-button-rounded p-button-secondary p-button-text" (click)="menu.toggle($event)"></button>
+      </div>
+
+      <!-- mobile button goes here -->
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </div>
     </div>
-  </nav>
-  
+  </div>
+
+  <!-- mobile menu -->
+  <div class="mobile-menu md:hidden flex justify-center items-center text-center">
+    <div class="flex flex-col space-y-2 mb-2.5">
+<!--       <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Home</a>
+      <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Courses</a>
+      <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Assignments</a>
+      <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Exams</a> -->
+      <a *ngIf="isLoggedIn()" href="/profile-page" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Profile</a>
+      <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 bg-yellow-400 hover:bg-yellow-300 text-purple-600 hover:text-purple-800 rounded transition duration-300 block" (click)="logout()">Logout</a>
+      <a *ngIf="!isLoggedIn()" href="/login-page" class="py-2 px-4 text-gray-700 hover:text-gray-900 block">Login</a>
+      <a *ngIf="!isLoggedIn()" href="/signup-page" class="py-2 px-4 bg-yellow-400 hover:bg-yellow-300 text-purple-600 hover:text-purple-800 rounded transition duration-300 block">Signup</a>
+    </div>
+  </div>
+</nav>

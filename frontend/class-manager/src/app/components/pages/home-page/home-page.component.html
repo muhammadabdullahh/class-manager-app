@@ -1,0 +1,85 @@
+<div class="min-h-screen flex flex-col bg-gray-900 text-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4 mt-4 rounded-2xl shadow-md mx-auto" style="max-width: 80%;">
+        <ul class="flex justify-center space-x-8">         
+              <li class="flex justify-center items-center">
+                  <a href="/home-page" class="text-white hover:text-blue-400 transition">
+                      <i class="pi pi-home icon-large"></i>
+                  </a>
+              </li>
+              <li class="flex justify-center items-center">
+                  <a href="/course-management" class="text-white hover:text-blue-400 transition">
+                      <i class="pi pi-book icon-large"></i>
+                  </a>
+              </li>
+              <li class="flex justify-center items-center">
+                  <a href="/assignment-tracking" class="text-white hover:text-blue-400 transition">
+                      <i class="pi pi-calendar icon-large"></i>
+                  </a>
+              </li>
+              <li class="flex justify-center items-center">
+                  <a href="/grade-monitoring" class="text-white hover:text-blue-400 transition">
+                      <i class="pi pi-chart-line icon-large"></i>
+                  </a>
+              </li>
+              <li class="flex justify-center items-center">
+                  <a href="/schedule-reminders" class="text-white hover:text-blue-400 transition">
+                      <i class="pi pi-clock icon-large"></i>
+                  </a>
+              </li>
+              <li class="flex justify-center items-center">
+                  <a href="/gpa-tracking" class="text-white hover:text-blue-400 transition">
+                      <i class="pi pi-calculator icon-large"></i>
+                  </a>
+              </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10 bg-gray-900 text-gray-100">
+        <div class="welcome-container text-center mb-10">
+            <h1 class="text-4xl font-bold mb-4">Welcome, {{ authService.getUserDetail().fullName }}!</h1>
+        </div>
+        
+        <!-- Current Classes -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-4">Current Classes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Math 101</h3>
+                    <p>Instructor: John Doe</p>
+                    <p>Mon, Wed, Fri - 10:00 AM</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">English Literature</h3>
+                    <p>Instructor: Jane Smith</p>
+                    <p>Tue, Thu - 1:00 PM</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Physics 201</h3>
+                    <p>Instructor: Richard Roe</p>
+                    <p>Mon, Wed - 3:00 PM</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Assignments -->
+        <section>
+            <h2 class="text-3xl font-bold mb-4">Upcoming Assignments</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Assignment 1 - Math 101</h3>
+                    <p>Due: 2024-07-10</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Essay - English Literature</h3>
+                    <p>Due: 2024-07-15</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Lab Report - Physics 201</h3>
+                    <p>Due: 2024-07-12</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
