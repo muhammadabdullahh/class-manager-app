@@ -1,32 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ABDULLMU\\OneDrive - Ontario Power Generation\\Desktop\\code\\class-manager-app\\backend\\api\\api.csproj": {}
+    "/Users/muhammadabdullah/Documents/Git/class-manager-app/backend/api/api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ABDULLMU\\OneDrive - Ontario Power Generation\\Desktop\\code\\class-manager-app\\backend\\api\\api.csproj": {
+    "/Users/muhammadabdullah/Documents/Git/class-manager-app/backend/api/api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ABDULLMU\\OneDrive - Ontario Power Generation\\Desktop\\code\\class-manager-app\\backend\\api\\api.csproj",
+        "projectUniqueName": "/Users/muhammadabdullah/Documents/Git/class-manager-app/backend/api/api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\ABDULLMU\\OneDrive - Ontario Power Generation\\Desktop\\code\\class-manager-app\\backend\\api\\api.csproj",
-        "packagesPath": "C:\\Users\\ABDULLMU\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ABDULLMU\\OneDrive - Ontario Power Generation\\Desktop\\code\\class-manager-app\\backend\\api\\obj\\",
+        "projectPath": "/Users/muhammadabdullah/Documents/Git/class-manager-app/backend/api/api.csproj",
+        "packagesPath": "/Users/muhammadabdullah/.nuget/packages/",
+        "outputPath": "/Users/muhammadabdullah/Documents/Git/class-manager-app/backend/api/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ABDULLMU\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/muhammadabdullah/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,6 +33,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -91,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

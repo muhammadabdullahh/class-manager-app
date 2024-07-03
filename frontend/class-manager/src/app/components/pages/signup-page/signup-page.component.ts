@@ -37,7 +37,7 @@ export class SignupPageComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
       {
-        name: ['', Validators.required],
+        fullName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         password: [
           '',
@@ -88,7 +88,8 @@ export class SignupPageComponent implements OnInit {
     const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(value);
     const hasUppercase = /[A-Z]/.test(value);
 
-    const passwordValid = hasNumber && hasAlphabet && hasSpecial && hasUppercase;
+    const passwordValid =
+      hasNumber && hasAlphabet && hasSpecial && hasUppercase;
     if (!passwordValid) {
       return { passwordStrength: true };
     }
@@ -103,26 +104,23 @@ export class SignupPageComponent implements OnInit {
       return;
     }
 
-    const { email, name, password, confirmPassword } = this.registerForm.value;
+    const { email, fullName, password, confirmPassword } = this.registerForm.value;
 
     console.log('Email:', email);
-    console.log('Name:', name);
+    console.log('Name:', fullName);
     console.log('Password:', password);
     console.log('Confirm Password:', confirmPassword);
 
-    /* this.authService.login({ email, password }).subscribe({
+    this.authService.register({ email, fullName, password, roles: ["USER"] }).subscribe({
       next: (response) => {
-       
         this.router.navigate(['/home-page']);
       },
-      error: (error) => {
-        
-      },
-    }); */
-  }
+      error: (error) => {},
+    });
+    }
 
-  // Convenience getter for easy access to form fields
-  get f() {
-    return this.registerForm.controls;
+    // Convenience getter for easy access to form fields
+    get f() {
+      return this.registerForm.controls;
   }
 }

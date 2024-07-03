@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { NavbarComponent } from '../../layout/navbar/navbar.component';
+import { Router } from '@angular/router';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NavbarComponent, InputTextModule, ButtonModule],
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.css']
 })
@@ -16,7 +20,7 @@ export class ProfilePageComponent implements OnInit {
     bio: ''
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadUserProfile();
@@ -31,5 +35,10 @@ export class ProfilePageComponent implements OnInit {
   onSubmit(): void {
     console.log('Profile updated:', this.profile);
     // Here you would typically send the updated profile data to the backend
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login-page']);
   }
 }

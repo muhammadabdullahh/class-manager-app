@@ -17,12 +17,12 @@
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
           <div>
-            <label for="name" class="block text-sm font-medium leading-5 text-gray-700">Name</label>
+            <label for="fullName" class="block text-sm font-medium leading-5 text-gray-700">Name</label>
             <div class="mt-1 relative rounded-md shadow-sm">
-              <input id="name" formControlName="name" placeholder="John Doe" type="text"
+              <input id="fullName" formControlName="fullName" placeholder="John Doe" type="text"
                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-              <div *ngIf="submitted && f['name'].errors" class="text-red-500 text-xs mt-1">
-                <div *ngIf="f['name'].errors['required']">Name is required</div>
+              <div *ngIf="submitted && f['fullName'].errors" class="text-red-500 text-xs mt-1">
+                <div *ngIf="f['fullName'].errors['required']">Name is required</div>
               </div>
             </div>
           </div>
