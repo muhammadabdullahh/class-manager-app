@@ -1,5 +1,5 @@
 ﻿using api.Data;
-using api.Dtos.Course;
+using api.Dtos;
 using api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class CourseController : ControllerBase

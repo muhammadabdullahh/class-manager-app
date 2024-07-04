@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace api.Dtos.Course
+namespace api.Dtos
 {
     public class UpdateCourseDto
     {

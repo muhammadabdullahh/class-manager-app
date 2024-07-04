@@ -1,4 +1,4 @@
-﻿namespace api.Dtos.Course
+﻿namespace api.Dtos
 {
     public class CourseDto
     {
