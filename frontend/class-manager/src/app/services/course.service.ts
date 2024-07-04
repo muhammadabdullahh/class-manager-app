@@ -24,7 +24,7 @@ export class CourseService {
 
   getUserCourses(): Observable<Course[]> {
     const user = this.authService.getUserDetail();
-    return this.http.get<Course[]>(`${this.apiUrl}/courses/user/${user.id}`, {
+    return this.http.get<Course[]>(`${this.apiUrl}/course/user/${user.id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -32,7 +32,7 @@ export class CourseService {
   }
 
   getCourse(id: number): Observable<Course> {
-    return this.http.get<Course>(`${this.apiUrl}/courses/${id}`, {
+    return this.http.get<Course>(`${this.apiUrl}/course/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -40,7 +40,7 @@ export class CourseService {
   }
 
   createCourse(data: Course): Observable<Course> {
-    return this.http.post<Course>(`${this.apiUrl}/courses`, data, {
+    return this.http.post<Course>(`${this.apiUrl}/course`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -48,7 +48,7 @@ export class CourseService {
   }
 
   updateCourse(id: number, data: Course): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/courses/${id}`, data, {
+    return this.http.put<void>(`${this.apiUrl}/course/${id}`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -56,7 +56,7 @@ export class CourseService {
   }
 
   deleteCourse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/courses/${id}`, {
+    return this.http.delete<void>(`${this.apiUrl}/course/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)

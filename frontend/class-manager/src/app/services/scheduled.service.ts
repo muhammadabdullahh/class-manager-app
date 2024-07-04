@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment.development';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Scheduled } from '../interfaces/scheduled.model';
 
 @Injectable({
@@ -11,7 +11,6 @@ import { Scheduled } from '../interfaces/scheduled.model';
 })
 export class ScheduleService {
   private apiUrl: string = environment.apiUrl;
-  private tokenKey = 'token';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -22,8 +21,8 @@ export class ScheduleService {
     });
   }
 
-  getSchedules(): Observable<Scheduled[]> {
-    return this.http.get<Scheduled[]>(`${this.apiUrl}/scheduleds`, {
+  getSchedules(eventId: number): Observable<Scheduled[]> {
+    return this.http.get<Scheduled[]>(`${this.apiUrl}/schedule/event/${eventId}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -31,7 +30,7 @@ export class ScheduleService {
   }
 
   getSchedule(id: number): Observable<Scheduled> {
-    return this.http.get<Scheduled>(`${this.apiUrl}/scheduleds/${id}`, {
+    return this.http.get<Scheduled>(`${this.apiUrl}/schedule/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -39,7 +38,7 @@ export class ScheduleService {
   }
 
   createSchedule(data: Scheduled): Observable<Scheduled> {
-    return this.http.post<Scheduled>(`${this.apiUrl}/scheduleds`, data, {
+    return this.http.post<Scheduled>(`${this.apiUrl}/schedule`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -47,7 +46,7 @@ export class ScheduleService {
   }
 
   updateSchedule(id: number, data: Scheduled): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/scheduleds/${id}`, data, {
+    return this.http.put<void>(`${this.apiUrl}/schedule/${id}`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -55,7 +54,7 @@ export class ScheduleService {
   }
 
   deleteSchedule(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/scheduleds/${id}`, {
+    return this.http.delete<void>(`${this.apiUrl}/schedule/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)

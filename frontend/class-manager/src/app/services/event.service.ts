@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment.development';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Event } from '../interfaces/event.model';
 
 @Injectable({
@@ -11,7 +11,6 @@ import { Event } from '../interfaces/event.model';
 })
 export class EventService {
   private apiUrl: string = environment.apiUrl;
-  private tokenKey = 'token';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -22,8 +21,8 @@ export class EventService {
     });
   }
 
-  getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.apiUrl}/events`, {
+  getEvents(courseId: number): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.apiUrl}/event/course/${courseId}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -31,7 +30,7 @@ export class EventService {
   }
 
   getEvent(id: number): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/events/${id}`, {
+    return this.http.get<Event>(`${this.apiUrl}/event/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -39,7 +38,7 @@ export class EventService {
   }
 
   createEvent(data: Event): Observable<Event> {
-    return this.http.post<Event>(`${this.apiUrl}/events`, data, {
+    return this.http.post<Event>(`${this.apiUrl}/event`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -47,7 +46,7 @@ export class EventService {
   }
 
   updateEvent(id: number, data: Event): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/events/${id}`, data, {
+    return this.http.put<void>(`${this.apiUrl}/event/${id}`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -55,7 +54,7 @@ export class EventService {
   }
 
   deleteEvent(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/events/${id}`, {
+    return this.http.delete<void>(`${this.apiUrl}/event/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)

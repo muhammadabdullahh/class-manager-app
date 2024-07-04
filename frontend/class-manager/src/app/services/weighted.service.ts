@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment.development';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Weighted } from '../interfaces/weighted.model';
 
 @Injectable({
@@ -11,7 +11,6 @@ import { Weighted } from '../interfaces/weighted.model';
 })
 export class WeightedService {
   private apiUrl: string = environment.apiUrl;
-  private tokenKey = 'token';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -22,8 +21,8 @@ export class WeightedService {
     });
   }
 
-  getWeighteds(): Observable<Weighted[]> {
-    return this.http.get<Weighted[]>(`${this.apiUrl}/weighteds`, {
+  getWeighteds(eventId: number): Observable<Weighted[]> {
+    return this.http.get<Weighted[]>(`${this.apiUrl}/weighted/event/${eventId}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -31,7 +30,7 @@ export class WeightedService {
   }
 
   getWeighted(id: number): Observable<Weighted> {
-    return this.http.get<Weighted>(`${this.apiUrl}/weighteds/${id}`, {
+    return this.http.get<Weighted>(`${this.apiUrl}/weighted/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -39,7 +38,7 @@ export class WeightedService {
   }
 
   createWeighted(data: Weighted): Observable<Weighted> {
-    return this.http.post<Weighted>(`${this.apiUrl}/weighteds`, data, {
+    return this.http.post<Weighted>(`${this.apiUrl}/weighted`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -47,7 +46,7 @@ export class WeightedService {
   }
 
   updateWeighted(id: number, data: Weighted): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/weighteds/${id}`, data, {
+    return this.http.put<void>(`${this.apiUrl}/weighted/${id}`, data, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)
@@ -55,7 +54,7 @@ export class WeightedService {
   }
 
   deleteWeighted(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/weighteds/${id}`, {
+    return this.http.delete<void>(`${this.apiUrl}/weighted/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)

@@ -7,10 +7,8 @@ import { SignupPageComponent } from './components/pages/signup-page/signup-page.
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { ProfilePageComponent } from './components/pages/profile-page/profile-page.component';
 import { CoursesComponent } from './components/pages/courses/courses.component';
-import { AssignmentsComponent } from './components/pages/assignments/assignments.component';
-import { GradesComponent } from './components/pages/grades/grades.component';
 import { ScheduleComponent } from './components/pages/schedule/schedule.component';
-import { GpaComponent } from './components/pages/gpa/gpa.component';
+import { ToolsPageComponent } from './components/pages/tools-page/tools-page.component';
 
 export const routes: Routes = [
     {
@@ -43,20 +41,8 @@ export const routes: Routes = [
         component: CoursesComponent
     },
     {
-        path: 'grades-page',
-        component: GradesComponent
-    },
-    {
         path: 'schedule-page',
         component: ScheduleComponent
-    },
-    {
-        path: 'gpa-page',
-        component: GpaComponent
-    },
-    {
-        path: 'assignments-page',
-        component: AssignmentsComponent
     },
     {
         path: 'login-page',
@@ -65,5 +51,9 @@ export const routes: Routes = [
     {
         path: 'signup-page',
         component: SignupPageComponent
+    },
+    {
+        path: 'tools-page',
+        component: ToolsPageComponent
     }
 ];
