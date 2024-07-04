@@ -31,7 +31,7 @@ namespace api.Controllers
         // api.account/register
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<ActionResult<string>> Register(RegisterDto registerDto)
+         public async Task<ActionResult<AuthResponseDto>> Register(RegisterDto registerDto)
         {
             if (!ModelState.IsValid)
             {
@@ -69,10 +69,13 @@ namespace api.Controllers
                 await _userManager.AddToRoleAsync(user, "User");
             }
 
+            var token = GenerateToken(user);
+
             return Ok(new AuthResponseDto
             {
+                Token = token,
                 IsSuccess = true,
-                Message = "Acount created successfully"
+                Message = "Account created successfully"
             });
         }
 

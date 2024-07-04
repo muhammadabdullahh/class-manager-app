@@ -29,6 +29,20 @@ export class AuthService {
       );
   }
 
+  
+  register(data: RegisterRequest): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponse>(`${this.apiUrl}account/register`, data)
+      .pipe(
+        map((response) => {
+          if (response.isSuccess) {
+            localStorage.setItem(this.tokenKey, response.token);
+          }
+          return response;
+        })
+      );
+  }
+
   getUserDetail = () => {
     const token = this.getToken();
     if (!token) {
@@ -43,19 +57,6 @@ export class AuthService {
     };
     return userDetail;
   };
-
-  register(data: RegisterRequest): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${this.apiUrl}account/register`, data)
-      .pipe(
-        map((response) => {
-          if (response.isSuccess) {
-            localStorage.setItem(this.tokenKey, response.token);
-          }
-          return response;
-        })
-      );
-  }
 
   private isTokenExpired(): boolean {
     const token = this.getToken();
@@ -82,7 +83,7 @@ export class AuthService {
     return !this.isTokenExpired();
   };
 
-  private getToken = (): string => {
+  getToken = (): string => {
     return localStorage.getItem(this.tokenKey) || '';
   };
 }
