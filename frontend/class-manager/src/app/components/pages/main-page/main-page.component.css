@@ -43,3 +43,20 @@ body {
         font-size: 30px;
     }
 }
+
+.getstarted-bg {
+    position: relative;
+    z-index: 1;
+}
+
+.getstarted-bg::before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 200px;
+    background: linear-gradient(0deg, var(--background-100), transparent);
+    z-index: -1;
+}

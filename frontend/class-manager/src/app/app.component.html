@@ -1,4 +1,6 @@
-
-<app-header />
-<router-outlet />
-<app-footer />
+<div class="flex min-h-screen flex-col">
+  <app-header class="fixed left-0 right-0 z-50" />
+  <router-outlet class="mt-16" />
+  <div class="grow bg-background-100"></div>
+  <app-footer />
+</div>

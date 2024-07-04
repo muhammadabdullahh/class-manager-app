@@ -1,31 +1,57 @@
-<div class="min-h-screen flex flex-col bg-gray-900 text-gray-100">
-    <!-- Navbar -->
-    <app-navbar></app-navbar>
-    <main class="flex-1 p-10 bg-gray-900 text-gray-100">
-        <div class="max-w-4xl mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
-            <h1 class="text-4xl font-bold mb-8 text-center">Profile</h1>
+<div class="flex min-h-screen flex-col bg-background-50 text-text-900">
+  <!-- Navbar -->
+  <app-navbar></app-navbar>
+  <main class="flex-1 bg-background-50 p-10 text-text-900">
+    <div class="mx-auto max-w-4xl rounded-lg bg-background-100 p-8 shadow-lg">
+      <h1 class="mb-8 text-center text-4xl font-bold">Profile</h1>
 
-            <form (ngSubmit)="onSubmit()">
-                <div class="mb-6">
-                    <label for="fullName" class="block text-lg font-medium text-gray-300">Full Name</label>
-                    <input pInputText type="text" id="fullName" [(ngModel)]="profile.fullName" name="fullName" readonly
-                        class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500">
-                </div>
-
-                <div class="mb-6">
-                    <label for="email" class="block text-lg font-medium text-gray-300">Email</label>
-                    <input pInputText type="email" id="email" [(ngModel)]="profile.email" name="email" readonly
-                        class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500">
-                </div>
-                <div class="text-center">
-                    <button pButton type="submit" hidden label="Update Profile" icon="pi pi-save"
-                        class="py-3 px-6 bg-blue-500 text-gray-100 font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-300"></button>
-                </div>
-            </form>
-            <div class="text-center mt-6">
-                <button pButton type="button" (click)="logout()" label="Logout" icon="pi pi-sign-out"
-                    class="py-3 px-6 bg-red-500 text-gray-100 font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300"></button>
-            </div>
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-6">
+          <label for="fullName" class="block text-lg font-medium text-text-900"
+            >Full Name</label
+          >
+          <input
+            type="text"
+            id="fullName"
+            [(ngModel)]="profile.fullName"
+            name="fullName"
+            readonly
+            class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5"
+          />
         </div>
-    </main>
+
+        <div class="mb-6">
+          <label for="email" class="block text-lg font-medium text-text-900"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="profile.email"
+            name="email"
+            readonly
+            class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5"
+          />
+        </div>
+        <div class="text-center">
+          <button
+            pButton
+            type="submit"
+            hidden
+            label="Update Profile"
+            icon="pi pi-save"
+            class="rounded-lg bg-blue-500 px-6 py-3 font-semibold text-text-900 shadow-md transition duration-300 hover:bg-blue-600"
+          ></button>
+        </div>
+      </form>
+      <div class="mt-6 text-center">
+        <button
+          (click)="logout()"
+          class="rounded-md bg-red-500 px-6 py-3 font-semibold text-text-900 shadow-md transition duration-300 hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </main>
 </div>

@@ -6,3 +6,29 @@
 
 @import "primeng/resources/themes/saga-green/theme.css";
 @import "primeicons/primeicons.css";
+
+@import "theme.css";
+
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+  }
+}
+
+html,
+body {
+  max-height: 100dvh;
+  background-color: var(--background-900);
+  color: var(--text-900);
+}
+
+html.dark {
+  caret-color: white;
+}
+
+::selection {
+  background: var(--primary-500);
+  color: var(--text-900);
+}
