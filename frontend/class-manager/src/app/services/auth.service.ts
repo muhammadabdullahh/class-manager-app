@@ -18,7 +18,7 @@ export class AuthService {
 
   login(data: LoginRequest): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>(`${this.apiUrl}account/login`, data)
+      .post<AuthResponse>(`${this.apiUrl}/account/login`, data)
       .pipe(
         map((response) => {
           if (response.isSuccess) {
@@ -32,7 +32,7 @@ export class AuthService {
   
   register(data: RegisterRequest): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>(`${this.apiUrl}account/register`, data)
+      .post<AuthResponse>(`${this.apiUrl}/account/register`, data)
       .pipe(
         map((response) => {
           if (response.isSuccess) {

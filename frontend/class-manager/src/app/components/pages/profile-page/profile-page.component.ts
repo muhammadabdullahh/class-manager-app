@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { NavbarComponent } from '../../layout/navbar/navbar.component';
 import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -9,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [FormsModule, NavbarComponent, InputTextModule, ButtonModule],
+  imports: [FormsModule, InputTextModule, ButtonModule],
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.css']
 })
