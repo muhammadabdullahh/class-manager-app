@@ -12,11 +12,13 @@ import { ProfilePageComponent } from '../../pages/profile-page/profile-page.comp
   standalone: true,
   imports: [CommonModule, MenuModule, ButtonModule, ProfilePageComponent],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  darkMode: boolean = false;
 
   items: MenuItem[] | undefined;
 
@@ -28,22 +30,51 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login-page']);
   }
-  
+
   ngOnInit() {
     // grab everything we need
-    const btn = document.querySelector("button.mobile-menu-button");
-    const menu = document.querySelector(".mobile-menu");
+    const btn = document.querySelector('button.mobile-menu-button');
+    const menu = document.querySelector('.mobile-menu');
 
     this.items = [
-      { label: 'View Profile', icon: 'pi pi-fw pi-user', routerLink: '/profile-page' },
-      { label: 'Logout', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
+      {
+        label: 'View Profile',
+        icon: 'pi pi-fw pi-user',
+        routerLink: '/profile-page',
+      },
+      {
+        label: 'Logout',
+        icon: 'pi pi-fw pi-sign-out',
+        command: () => this.logout(),
+      },
     ];
 
     // add event listeners
     if (btn && menu) {
-      btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
       });
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.toggleDarkMode(true);
+    } else if (savedTheme === 'light') {
+      this.toggleDarkMode(false);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      this.toggleDarkMode(true);
+    }
+  }
+
+  toggleDarkMode(bool: boolean) {
+    this.darkMode = bool;
+
+    if (bool) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }
 }

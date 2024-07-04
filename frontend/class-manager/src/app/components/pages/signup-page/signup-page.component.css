@@ -1,0 +1,16 @@
+.signup-bg {
+  position: relative;
+  z-index: 1;
+}
+
+.signup-bg::before {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+  background: linear-gradient(0deg, var(--background-200), transparent);
+  z-index: -1;
+}

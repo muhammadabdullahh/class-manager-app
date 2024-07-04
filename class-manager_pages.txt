@@ -1,0 +1,13 @@
+---PAGES PLANNED
+
+homepage - landing (not signed in)
+
+login/register pages
+
+dashboard (signed in)
+
+courses pages
+
+settings
+
+user profile
