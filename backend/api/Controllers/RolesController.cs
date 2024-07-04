@@ -14,7 +14,6 @@ namespace api.Controllers
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-
         private readonly UserManager<AppUser> _userManager;
 
         public RolesController(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager)
@@ -49,7 +48,6 @@ namespace api.Controllers
 
         }
 
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoleResponseDto>>> GetRoles()
         {
@@ -63,7 +61,6 @@ namespace api.Controllers
 
             return Ok(roles);
         }
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRole(string id)
@@ -107,6 +104,35 @@ namespace api.Controllers
             if (result.Succeeded)
             {
                 return Ok(new { message = "Role assigned successfully" });
+            }
+
+            var error = result.Errors.FirstOrDefault();
+
+            return BadRequest(error!.Description);
+        }
+
+        [HttpPost("unassign")]
+        public async Task<IActionResult> UnassignRole([FromBody] AssignRoleDto unassignRoleDto)
+        {
+            var user = await _userManager.FindByIdAsync(unassignRoleDto.UserId);
+
+            if (user is null)
+            {
+                return NotFound("User not found");
+            }
+
+            var role = await _roleManager.FindByIdAsync(unassignRoleDto.RoleId);
+
+            if (role is null)
+            {
+                return NotFound("Role not found");
+            }
+
+            var result = await _userManager.RemoveFromRoleAsync(user, role.Name!);
+
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Role unassigned successfully" });
             }
 
             var error = result.Errors.FirstOrDefault();
