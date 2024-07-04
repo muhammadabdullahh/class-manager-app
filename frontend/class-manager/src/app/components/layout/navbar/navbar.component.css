@@ -1,0 +1,11 @@
+.icon-large {
+    font-size: 30px;
+}
+
+@media (max-width: 768px) {
+    .icon-large {
+        font-size: 25px;
+    }
+}
+  
+  

@@ -1,0 +1,8 @@
+@layer tw-base, tw-components, tw-utilities;
+
+@import "tailwindcss/base.css" layer(tw-base);
+@import "tailwindcss/components.css" layer(tw-components);
+@import "tailwindcss/utilities.css" layer(tw-utilities);
+
+@import "primeng/resources/themes/saga-green/theme.css";
+@import "primeicons/primeicons.css";
