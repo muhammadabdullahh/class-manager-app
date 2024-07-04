@@ -4,9 +4,6 @@ using api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace api.Controllers
 {
@@ -22,7 +19,6 @@ namespace api.Controllers
             _context = context;
         }
 
-        // GET: api/Schedule
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ScheduleDto>>> GetSchedules()
         {
@@ -38,7 +34,6 @@ namespace api.Controllers
             return Ok(scheduleDtos);
         }
 
-        // GET: api/Schedule/Event/{eventId}
         [HttpGet("Event/{eventId}")]
         public async Task<ActionResult<IEnumerable<ScheduleDto>>> GetEventSchedules(int eventId)
         {
@@ -60,7 +55,6 @@ namespace api.Controllers
             return Ok(scheduleDtos);
         }
 
-        // GET: api/Schedule/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ScheduleDto>> GetSchedule(int id)
         {
@@ -82,7 +76,6 @@ namespace api.Controllers
             return Ok(scheduleDto);
         }
 
-        // POST: api/Schedule
         [HttpPost]
         public async Task<ActionResult<ScheduleDto>> PostSchedule([FromBody] CreateScheduleDto createScheduleDto)
         {
@@ -119,7 +112,6 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetSchedule), new { id = schedule.ScheduledID }, scheduleDto);
         }
 
-        // PUT: api/Schedule/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSchedule(int id, [FromBody] UpdateScheduleDto updateScheduleDto)
         {
@@ -158,7 +150,6 @@ namespace api.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Schedule/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSchedule(int id)
         {

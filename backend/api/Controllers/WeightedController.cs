@@ -4,9 +4,6 @@ using api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace api.Controllers
 {
@@ -22,7 +19,6 @@ namespace api.Controllers
             _context = context;
         }
 
-        // GET: api/Weighted
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WeightedDto>>> GetWeighteds()
         {
@@ -44,7 +40,6 @@ namespace api.Controllers
             return Ok(weightedDtos);
         }
 
-        // GET: api/Weighted/Event/{eventId}
         [HttpGet("Event/{eventId}")]
         public async Task<ActionResult<IEnumerable<WeightedDto>>> GetEventWeighteds(int eventId)
         {
@@ -72,7 +67,6 @@ namespace api.Controllers
             return Ok(weightedDtos);
         }
 
-        // GET: api/Weighted/5
         [HttpGet("{id}")]
         public async Task<ActionResult<WeightedDto>> GetWeighted(int id)
         {
@@ -100,7 +94,6 @@ namespace api.Controllers
             return Ok(weightedDto);
         }
 
-        // POST: api/Weighted
         [HttpPost]
         public async Task<ActionResult<WeightedDto>> PostWeighted([FromBody] CreateWeightedDto createWeightedDto)
         {
@@ -149,7 +142,6 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetWeighted), new { id = weighted.WeightedID }, weightedDto);
         }
 
-        // PUT: api/Weighted/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutWeighted(int id, [FromBody] UpdateWeightedDto updateWeightedDto)
         {
@@ -194,7 +186,6 @@ namespace api.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Weighted/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWeighted(int id)
         {

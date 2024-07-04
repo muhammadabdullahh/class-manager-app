@@ -22,7 +22,6 @@ namespace api.Controllers
             _userManager = userManager;
         }
 
-        // GET: api/Course
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourses()
         {
@@ -46,7 +45,6 @@ namespace api.Controllers
             return Ok(courseDtos);
         }
 
-        // GET: api/Course/User/{userId}
         [HttpGet("User/{userId}")]
         public async Task<ActionResult<IEnumerable<CourseDto>>> GetUserCourses(string userId)
         {
@@ -76,7 +74,6 @@ namespace api.Controllers
             return Ok(courseDtos);
         }
 
-        // GET: api/Course/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDto>> GetCourse(int id)
         {
@@ -106,7 +103,6 @@ namespace api.Controllers
             return Ok(courseDto);
         }
 
-        // POST: api/Course
         [HttpPost]
         public async Task<ActionResult<CourseDto>> PostCourse([FromBody] CreateCourseDto createCourseDto)
         {
@@ -161,7 +157,6 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetCourse), new { id = course.CourseID }, courseDto);
         }
 
-        // PUT: api/Course/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourse(int id, [FromBody] UpdateCourseDto updateCourseDto)
         {

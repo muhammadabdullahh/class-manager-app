@@ -19,7 +19,6 @@ namespace api.Controllers
             _context = context;
         }
 
-        // GET: api/Event
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
@@ -41,7 +40,6 @@ namespace api.Controllers
             return Ok(eventDtos);
         }
 
-        // GET: api/Event/Course/{courseId}
         [HttpGet("Course/{courseId}")]
         public async Task<ActionResult<IEnumerable<EventDto>>> GetCourseEvents(int courseId)
         {
@@ -69,7 +67,6 @@ namespace api.Controllers
             return Ok(eventDtos);
         }
 
-        // GET: api/Event/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EventDto>> GetEvent(int id)
         {
@@ -97,7 +94,6 @@ namespace api.Controllers
             return Ok(eventDto);
         }
 
-        // POST: api/Event
         [HttpPost]
         public async Task<ActionResult<EventDto>> PostEvent([FromBody] CreateEventDto createEventDto)
         {
@@ -146,7 +142,6 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetEvent), new { id = eventEntity.EventID }, eventDto);
         }
 
-        // PUT: api/Event/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent(int id, [FromBody] UpdateEventDto updateEventDto)
         {
@@ -197,7 +192,6 @@ namespace api.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Event/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
         {

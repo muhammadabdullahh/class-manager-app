@@ -14,7 +14,6 @@ namespace api.Controllers
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    //api/account
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -28,10 +27,52 @@ namespace api.Controllers
             _configuration = configuration;
         }
 
-        // api.account/register
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserDetailDto>>> GetUsers()
+        {
+            var users = await _userManager.Users.Select(user => new UserDetailDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FullName = user.FullName,
+                Roles = _userManager.GetRolesAsync(user).Result.ToArray()
+            }).ToListAsync();
+
+            return Ok(users);
+        }
+
+        [Authorize]
+        [HttpGet("details")]
+        public async Task<ActionResult<UserDetailDto>> GetUserDetails()
+        {
+            var currentUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(currentUserID!);
+
+            if (user is null)
+            {
+                return NotFound(new AuthResponseDto
+                {
+                    IsSuccess = false,
+                    Message = "User not found"
+                });
+            }
+
+            return Ok(new UserDetailDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FullName = user.FullName,
+                Roles = [.. await _userManager.GetRolesAsync(user)],
+                PhoneNumber = user.PhoneNumber,
+                TwoFactorEnabled = user.TwoFactorEnabled,
+                PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                AccessFailedCount = user.AccessFailedCount
+            });
+        }
+
         [AllowAnonymous]
         [HttpPost("register")]
-         public async Task<ActionResult<AuthResponseDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<AuthResponseDto>> Register(RegisterDto registerDto)
         {
             if (!ModelState.IsValid)
             {
@@ -79,7 +120,6 @@ namespace api.Controllers
             });
         }
 
-        // api.account/login
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponseDto>> Login(LoginDto loginDto)
@@ -121,6 +161,38 @@ namespace api.Controllers
             });
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<string>> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user is null)
+            {
+                return NotFound(new AuthResponseDto
+                {
+                    IsSuccess = false,
+                    Message = "User not found"
+                });
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new AuthResponseDto
+                {
+                    IsSuccess = false,
+                    Message = "User deletion failed"
+                });
+            }
+
+            return Ok(new AuthResponseDto
+            {
+                IsSuccess = true,
+                Message = "User deleted successfully"
+            });
+        }
+
         private string GenerateToken(AppUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -153,83 +225,6 @@ namespace api.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> DeleteUser(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-
-            if (user is null)
-            {
-                return NotFound(new AuthResponseDto
-                {
-                    IsSuccess = false,
-                    Message = "User not found"
-                });
-            }
-
-            var result = await _userManager.DeleteAsync(user);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(new AuthResponseDto
-                {
-                    IsSuccess = false,
-                    Message = "User deletion failed"
-                });
-            }
-
-            return Ok(new AuthResponseDto
-            {
-                IsSuccess = true,
-                Message = "User deleted successfully"
-            });
-        }
-        //Get user details
-        // api/account/details
-        [Authorize]
-        [HttpGet("details")]
-        public async Task<ActionResult<UserDetailDto>> GetUserDetails()
-        {
-            var currentUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _userManager.FindByIdAsync(currentUserID!);
-
-            if (user is null)
-            {
-                return NotFound(new AuthResponseDto
-                {
-                    IsSuccess = false,
-                    Message = "User not found"
-                });
-            }
-
-            return Ok(new UserDetailDto
-            {
-                Id = user.Id,
-                Email = user.Email,
-                FullName = user.FullName,
-                Roles = [.. await _userManager.GetRolesAsync(user)],
-                PhoneNumber = user.PhoneNumber,
-                TwoFactorEnabled = user.TwoFactorEnabled,
-                PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-                AccessFailedCount = user.AccessFailedCount
-            });
-        }
-
-        // Get all Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDetailDto>>> GetUsers()
-        {
-            var users = await _userManager.Users.Select(user => new UserDetailDto
-            {
-                Id = user.Id,
-                Email = user.Email,
-                FullName = user.FullName,
-                Roles = _userManager.GetRolesAsync(user).Result.ToArray()
-            }).ToListAsync();
-
-            return Ok(users);
         }
     }
 };
