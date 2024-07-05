@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace api.Dtos
 {
@@ -7,23 +8,16 @@ namespace api.Dtos
         [Required]
         public int EventID { get; set; }
 
-        [Required]
-        public DateTime DueDate { get; set; }
-
-        [Required]
         public DateTime SubmissionDate { get; set; }
 
-        [Required]
         [Range(0, 100)]
-        public decimal MaxScore { get; set; }
+        public decimal MaxScore { get; set; } = 100;
 
-        [Required]
         [Range(0, 100)]
-        public decimal ScoreAchieved { get; set; }
+        public decimal ScoreAchieved { get; set; } = 0;
 
-        [Required]
         [Range(0, 100)]
-        public decimal Weight { get; set; }
+        public decimal Weight { get; set; } = 0;
 
         [StringLength(500)]
         public string Feedback { get; set; } = string.Empty;

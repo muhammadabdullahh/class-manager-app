@@ -4,7 +4,6 @@ export interface Event {
     title: string;
     description: string;
     eventType: string;
-    status: string;
     location: string;
     isComplete: boolean;
     createdAt: Date;

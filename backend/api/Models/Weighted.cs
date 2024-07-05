@@ -4,7 +4,6 @@
     {
         public int WeightedID { get; set; }
         public int EventID { get; set; }
-        public DateTime DueDate { get; set; }
         public DateTime SubmissionDate { get; set; }
         public decimal MaxScore { get; set; }
         public decimal ScoreAchieved { get; set; }

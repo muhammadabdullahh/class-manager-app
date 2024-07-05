@@ -30,7 +30,6 @@ namespace api.Controllers
                 Title = e.Title,
                 Description = e.Description,
                 EventType = e.EventType,
-                Status = e.Status,
                 Location = e.Location,
                 IsComplete = e.IsComplete,
                 CreatedAt = e.CreatedAt,
@@ -57,7 +56,6 @@ namespace api.Controllers
                 Title = e.Title,
                 Description = e.Description,
                 EventType = e.EventType,
-                Status = e.Status,
                 Location = e.Location,
                 IsComplete = e.IsComplete,
                 CreatedAt = e.CreatedAt,
@@ -84,7 +82,6 @@ namespace api.Controllers
                 Title = eventEntity.Title,
                 Description = eventEntity.Description,
                 EventType = eventEntity.EventType,
-                Status = eventEntity.Status,
                 Location = eventEntity.Location,
                 IsComplete = eventEntity.IsComplete,
                 CreatedAt = eventEntity.CreatedAt,
@@ -115,7 +112,6 @@ namespace api.Controllers
                 Title = createEventDto.Title,
                 Description = createEventDto.Description,
                 EventType = createEventDto.EventType,
-                Status = createEventDto.Status,
                 Location = createEventDto.Location,
                 IsComplete = createEventDto.IsComplete,
                 CreatedAt = DateTime.UtcNow,
@@ -132,7 +128,6 @@ namespace api.Controllers
                 Title = eventEntity.Title,
                 Description = eventEntity.Description,
                 EventType = eventEntity.EventType,
-                Status = eventEntity.Status,
                 Location = eventEntity.Location,
                 IsComplete = eventEntity.IsComplete,
                 CreatedAt = eventEntity.CreatedAt,
@@ -165,7 +160,6 @@ namespace api.Controllers
             eventEntity.Title = updateEventDto.Title;
             eventEntity.Description = updateEventDto.Description;
             eventEntity.EventType = updateEventDto.EventType;
-            eventEntity.Status = updateEventDto.Status;
             eventEntity.Location = updateEventDto.Location;
             eventEntity.IsComplete = updateEventDto.IsComplete;
             eventEntity.Course = course;

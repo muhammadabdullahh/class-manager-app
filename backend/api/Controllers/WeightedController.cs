@@ -27,7 +27,6 @@ namespace api.Controllers
             {
                 WeightedID = w.WeightedID,
                 EventID = w.EventID,
-                DueDate = w.DueDate,
                 SubmissionDate = w.SubmissionDate,
                 MaxScore = w.MaxScore,
                 ScoreAchieved = w.ScoreAchieved,
@@ -54,7 +53,6 @@ namespace api.Controllers
             {
                 WeightedID = w.WeightedID,
                 EventID = w.EventID,
-                DueDate = w.DueDate,
                 SubmissionDate = w.SubmissionDate,
                 MaxScore = w.MaxScore,
                 ScoreAchieved = w.ScoreAchieved,
@@ -81,7 +79,6 @@ namespace api.Controllers
             {
                 WeightedID = weighted.WeightedID,
                 EventID = weighted.EventID,
-                DueDate = weighted.DueDate,
                 SubmissionDate = weighted.SubmissionDate,
                 MaxScore = weighted.MaxScore,
                 ScoreAchieved = weighted.ScoreAchieved,
@@ -112,7 +109,6 @@ namespace api.Controllers
             {
                 EventID = createWeightedDto.EventID,
                 Event = eventEntity,
-                DueDate = createWeightedDto.DueDate,
                 SubmissionDate = createWeightedDto.SubmissionDate,
                 MaxScore = createWeightedDto.MaxScore,
                 ScoreAchieved = createWeightedDto.ScoreAchieved,
@@ -129,7 +125,6 @@ namespace api.Controllers
             {
                 WeightedID = weighted.WeightedID,
                 EventID = weighted.EventID,
-                DueDate = weighted.DueDate,
                 SubmissionDate = weighted.SubmissionDate,
                 MaxScore = weighted.MaxScore,
                 ScoreAchieved = weighted.ScoreAchieved,
@@ -156,7 +151,6 @@ namespace api.Controllers
                 return NotFound(new { Message = "Weighted not found." });
             }
 
-            weighted.DueDate = updateWeightedDto.DueDate;
             weighted.SubmissionDate = updateWeightedDto.SubmissionDate;
             weighted.MaxScore = updateWeightedDto.MaxScore;
             weighted.ScoreAchieved = updateWeightedDto.ScoreAchieved;
