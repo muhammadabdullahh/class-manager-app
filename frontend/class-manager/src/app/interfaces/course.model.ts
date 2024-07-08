@@ -8,7 +8,7 @@ export interface Course {
     semester: string;
     startDate: Date;
     endDate: Date;
-    syllabusURL: string;
+    syllabusURL: URL;
     notes: string;
     userID: string;
   }
