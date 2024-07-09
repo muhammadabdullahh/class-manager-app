@@ -1,51 +1,60 @@
 <div class="flex min-h-screen flex-col bg-background-50 text-text-900">
   <!-- Main Content -->
   <main class="flex-1 bg-background-50 p-10 text-text-800">
-    <div class="welcome-container mb-10 text-center">
-      <h1 class="mb-4 text-4xl font-bold">
-        Welcome, {{ authService.getUserDetail().fullName }}!
-      </h1>
+    <div class="flex justify-between items-center mb-10">
+      <div>
+        <p class="text-xl">{{ today | date:'fullDate' }}</p>
+      </div>
+      <div class="text-center">
+        <h1 class="text-4xl font-bold">Welcome, {{ authService.getUserDetail().fullName }}!</h1>
+      </div>
+      <div>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded">Customize</button>
+      </div>
     </div>
 
-    <!-- Current Classes -->
+    <!-- Upcoming Events -->
     <section class="mb-12">
-      <h2 class="mb-4 text-3xl font-bold">Current Classes</h2>
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-lg bg-background-100 p-6 shadow-lg">
-          <h3 class="mb-2 text-2xl font-bold">Math 101</h3>
-          <p>Instructor: John Doe</p>
-          <p>Mon, Wed, Fri - 10:00 AM</p>
-        </div>
-        <div class="rounded-lg bg-background-100 p-6 shadow-lg">
-          <h3 class="mb-2 text-2xl font-bold">English Literature</h3>
-          <p>Instructor: Jane Smith</p>
-          <p>Tue, Thu - 1:00 PM</p>
-        </div>
-        <div class="rounded-lg bg-background-100 p-6 shadow-lg">
-          <h3 class="mb-2 text-2xl font-bold">Physics 201</h3>
-          <p>Instructor: Richard Roe</p>
-          <p>Mon, Wed - 3:00 PM</p>
-        </div>
+      <h2 class="mb-4 text-3xl font-bold">Upcoming Events</h2>
+      <div *ngIf="events.length > 0; else noEventsTemplate">
+        <p-carousel [value]="events" [numVisible]="3" [numScroll]="3" [circular]="true">
+          <ng-template pTemplate="item" let-event>
+            <a href="#" class="relative rounded-lg bg-background-100 p-6 shadow-lg hover:bg-background-200 transition-colors min-w-[300px] block m-2">
+              <h3 class="mb-2 text-2xl font-bold">{{ event.title }}</h3>
+              <p>Course: {{ getCourseName(event.courseID) }}</p>
+              <p *ngIf="event.endTime">End Time: {{ event.endTime | date:'mediumDate' }}</p>
+            </a>
+          </ng-template>
+        </p-carousel>
       </div>
+      <ng-template #noEventsTemplate>
+        <p class="text-center text-xl">No upcoming events yet. <a href="#" class="text-blue-500">Click here to add.</a></p>
+      </ng-template>
     </section>
 
-    <!-- Upcoming Assignments -->
+    <!-- Current Classes -->
     <section>
-      <h2 class="mb-4 text-3xl font-bold">Upcoming Assignments</h2>
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-lg bg-background-100 p-6 shadow-lg">
-          <h3 class="mb-2 text-2xl font-bold">Assignment 1 - Math 101</h3>
-          <p>Due: 2024-07-10</p>
-        </div>
-        <div class="rounded-lg bg-background-100 p-6 shadow-lg">
-          <h3 class="mb-2 text-2xl font-bold">Essay - English Literature</h3>
-          <p>Due: 2024-07-15</p>
-        </div>
-        <div class="rounded-lg bg-background-100 p-6 shadow-lg">
-          <h3 class="mb-2 text-2xl font-bold">Lab Report - Physics 201</h3>
-          <p>Due: 2024-07-12</p>
-        </div>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-3xl font-bold">Current Classes</h2>
+        <button (click)="navigateToCourses()" class="px-4 py-2 bg-blue-500 text-white rounded">Manage</button>
       </div>
+      <div *ngIf="courses.length > 0; else noCoursesTemplate">
+        <p-carousel [value]="courses" [numVisible]="3" [numScroll]="3" [circular]="true">
+          <ng-template pTemplate="item" let-course>
+            <a href="#" class="relative rounded-lg bg-background-100 p-6 shadow-lg min-w-[300px] hover:bg-background-200 transition-colors block m-2 h-full">
+              <h3 class="mb-2 text-2xl font-bold">{{ course.courseName }}</h3>
+              <p>Instructor: {{ course.instructorName }}</p>
+              <p>Course Code: {{ course.courseCode }}</p>
+              <a *ngIf="course.syllabusURL" [href]="course.syllabusURL" target="_blank" class="absolute top-2 right-2 text-blue-500">
+                <i class="pi pi-external-link"></i>
+              </a>
+            </a>
+          </ng-template>
+        </p-carousel>
+      </div>
+      <ng-template #noCoursesTemplate>
+        <p class="text-center text-xl">No current classes yet. <a href="#" class="text-blue-500">Click here to add.</a></p>
+      </ng-template>
     </section>
   </main>
 </div>

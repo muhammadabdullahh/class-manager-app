@@ -1,9 +1,213 @@
-<div class="flex min-h-screen flex-col bg-background-50 text-text-900">
-  <!-- Navbar -->
-  <app-navbar></app-navbar>
-  <main class="flex-1 bg-background-50 p-10 text-text-900">
+<div class="flex min-h-screen flex-col bg-background-50 text-text-800">
+  <main class="flex-1 bg-background-50 p-10 text-text-800">
     <div class="welcome-container mb-10 text-center">
-      <h1 class="mb-4 text-4xl font-bold">Courses</h1>
+      <h1 class="text-4xl font-bold">Courses</h1>
     </div>
+    <section>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-3xl font-bold">All Courses</h2>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded" (click)="showAddCourseDialog()">Add Course</button>
+      </div>
+      <div *ngIf="courses.length > 0; else noCoursesTemplate">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div *ngFor="let course of courses"
+            class="relative rounded-lg bg-background-100 p-6 shadow-lg hover:bg-background-200 transition-colors min-w-[300px] block m-2 cursor-pointer"
+            (click)="showCourseDetailsDialog(course)">
+            <h3 class="mb-2 text-2xl font-bold">{{ course.courseName }}</h3>
+            <p>Instructor: {{ course.instructorName }}</p>
+            <p>Course Code: {{ course.courseCode }}</p>
+            <p>Credits: {{ course.credits }}</p>
+            <a *ngIf="course.syllabusURL" [href]="course.syllabusURL" target="_blank"
+              class="absolute top-2 right-2 text-blue-500" (click)="$event.stopPropagation()">
+              <i class="pi pi-external-link"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+      <ng-template #noCoursesTemplate>
+        <p class="text-center text-xl">No courses available yet. <a href="#" class="text-blue-500"
+            (click)="showAddCourseDialog()">Click here to add.</a></p>
+      </ng-template>
+    </section>
+
+    <!-- Add New Course Dialog -->
+    <p-dialog header="Add New Course" [(visible)]="displayAddCourseDialog" [modal]="true" [style]="{width: '50vw'}">
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit($event)">
+        <div class="p-6 bg-background-100 rounded-lg shadow-md">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="courseName" class="block text-sm font-medium leading-5 text-text-700">Course Name <span
+                  class="text-red-500">*</span></label>
+              <div class="relative rounded-md shadow-sm">
+                <input id="courseName" formControlName="courseName" placeholder="Physics" type="text" pInputText
+                  class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+                <div *ngIf="submitted && f['courseName'].errors" class=" text-xs text-red-500">
+                  <div *ngIf="f['courseName'].errors['required']">Course Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="courseCode" class="block text-sm font-medium leading-5 text-text-700">Course Code <span
+                  class="text-red-500">*</span></label>
+              <input id="courseCode" formControlName="courseCode" type="text" pInputText
+                class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+              <div *ngIf="submitted && f['courseCode'].errors" class=" text-xs text-red-500">
+                <div *ngIf="f['courseCode'].errors['required']">Course Code is required</div>
+                <div *ngIf="f['courseCode'].errors['pattern']">Invalid Course Code</div>
+              </div>
+            </div>
+            <div>
+              <label for="instructorName" class="block text-sm font-medium leading-5 text-text-700">Instructor Name
+                <span class="text-red-500">*</span></label>
+              <div class="relative  rounded-md shadow-sm">
+                <input id="instructorName" formControlName="instructorName" placeholder="Dave Kumar" type="text"
+                  pInputText
+                  class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+                <div *ngIf="submitted && f['instructorName'].errors" class=" text-xs text-red-500">
+                  <div *ngIf="f['instructorName'].errors['required']">Instructor Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="credits" class="block text-sm font-medium leading-5 text-text-700">Credits <span
+                  class="text-red-500">*</span></label>
+              <input id="credits" formControlName="credits" type="number" pInputText
+                class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+              <div *ngIf="submitted && f['credits'].errors" class=" text-xs text-red-500">
+                <div *ngIf="f['credits'].errors['required']">Credits are required</div>
+                <div *ngIf="f['credits'].errors['pattern']">Invalid Credits</div>
+              </div>
+            </div>
+            <div>
+              <label for="targetGrade" class="block text-sm font-medium leading-5 text-text-700">Target Grade <span
+                  class="text-red-500">*</span></label>
+              <input id="targetGrade" formControlName="targetGrade" type="number" pInputText
+                class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+              <div *ngIf="submitted && f['targetGrade'].errors" class=" text-xs text-red-500">
+                <div *ngIf="f['targetGrade'].errors['required']">Target Grade is required</div>
+                <div *ngIf="f['targetGrade'].errors['min']">Minimum value is 1</div>
+                <div *ngIf="f['targetGrade'].errors['max']">Maximum value is 100</div>
+              </div>
+            </div>
+            <div>
+              <label for="term" class="block text-sm font-medium leading-5 text-text-700">Term <span
+                  class="text-red-500">*</span></label>
+              <p-dropdown [options]="terms" formControlName="term" placeholder="Select Term"></p-dropdown>
+              <div *ngIf="submitted && f['term'].errors" class=" text-xs text-red-500">
+                <div *ngIf="f['term'].errors['required']">Term is required</div>
+              </div>
+            </div>
+            <div>
+              <label for="year" class="block text-sm font-medium leading-5 text-text-700">Year <span
+                  class="text-red-500">*</span></label>
+              <input id="year" formControlName="year" type="number" pInputText
+                class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+              <div *ngIf="submitted && f['year'].errors" class=" text-xs text-red-500">
+                <div *ngIf="f['year'].errors['required']">Year is required</div>
+                <div *ngIf="f['year'].errors['minlength']">Year must be 4 digits</div>
+                <div *ngIf="f['year'].errors['maxlength']">Year must be 4 digits</div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="block text-sm font-medium leading-5 text-text-700">
+              <label for="startDate">Start Date <span class="text-red-500">*</span></label>
+              <input id="startDate" formControlName="startDate" type="date" pInputText
+                class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+              <div *ngIf="submitted && f['startDate'].errors" class=" text-xs text-red-500">
+                <div *ngIf="f['startDate'].errors['required']">Start Date is required</div>
+              </div>
+            </div>
+            <div class="block text-sm font-medium leading-5 text-text-700">
+              <label for="endDate">End Date <span class="text-red-500">*</span></label>
+              <input id="endDate" formControlName="endDate" type="date" pInputText
+                class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+              <div *ngIf="submitted && f['endDate'].errors" class=" text-xs text-red-500">
+                <div *ngIf="f['endDate'].errors['required']">End Date is required</div>
+                <div *ngIf="f['endDate'].errors['endBeforeStart']">End Date must be after Start Date</div>
+              </div>
+            </div>
+          </div>
+          <div class="block text-sm font-medium leading-5 text-text-700">
+            <label for="syllabusURL">Syllabus URL</label>
+            <input id="syllabusURL" formControlName="syllabusURL" type="url" pInputText
+              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
+            <div *ngIf="submitted && f['syllabusURL'].errors" class=" text-xs text-red-500">
+              <div *ngIf="f['syllabusURL'].errors['pattern']">Invalid URL format</div>
+            </div>
+          </div>
+          <div class="block text-sm font-medium leading-5 text-text-700">
+            <label for="notes">Notes</label>
+            <textarea id="notes" formControlName="notes" pInputTextarea
+              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5"></textarea>
+          </div>
+
+          <div class="mt-8">
+            <span class="block w-full rounded-md shadow-sm">
+              <button type="submit"
+                class="focus:shadow-outline-indigo flex w-full justify-center rounded-md border border-transparent bg-primary-500 px-4 py-2 text-sm font-medium text-text-50 transition duration-150 ease-in-out hover:bg-primary-500 focus:border-indigo-700 focus:outline-none active:bg-indigo-700 dark:text-text-950">
+                Add Course
+              </button>
+            </span>
+          </div>
+        </div>
+      </form>
+    </p-dialog>
+
+    <!-- Course Details Dialog -->
+    <p-dialog header="Course Details" [(visible)]="displayCourseDetailsDialog" [modal]="true" [focusOnShow]="false"
+      [style]="{width: '90vw', maxWidth: '600px'}">
+      <div *ngIf="selectedCourse" class="p-6 bg-background-100 rounded-lg shadow-md">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">Course Name</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.courseName }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">Course Code</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.courseCode }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">Instructor Name</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.instructorName }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">Credits</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.credits }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">Target Grade</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.targetGrade }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">Term</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.semester }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">Start Date</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.startDate | date }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium leading-5 text-text-700">End Date</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.endDate | date }}</p>
+          </div>
+          <div *ngIf="selectedCourse.syllabusURL" class="col-span-1 md:col-span-2">
+            <label class="block text-sm font-medium leading-5 text-text-700">Syllabus URL</label>
+            <a [href]="selectedCourse.syllabusURL" target="_blank" class="text-blue-500">View Syllabus</a>
+          </div>
+          <div class="col-span-1 md:col-span-2">
+            <label class="block text-sm font-medium leading-5 text-text-700">Notes</label>
+            <p class="text-lg text-text-900">{{ selectedCourse.notes }}</p>
+          </div>
+        </div>
+        <div class="flex justify-end mt-6">
+          <button pButton type="button" icon="pi pi-trash" label="Delete" class="p-button-danger mr-2"
+            (click)="deleteCourse(selectedCourse.courseID)"></button>
+          <button pButton type="button" icon="pi pi-pencil" label="Edit" class="p-button-primary"
+            (click)="editCourse(selectedCourse)"></button>
+        </div>
+      </div>
+    </p-dialog>
   </main>
 </div>

@@ -101,10 +101,10 @@
     class="mobile-menu flex items-center justify-center bg-background-100 text-center shadow-md md:hidden"
   >
     <div class="mb-2.5 flex flex-col space-y-2">
-      <!--       <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-text-900 hover:text-text-700 block">Home</a>
-      <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-text-900 hover:text-text-700 block">Courses</a>
-      <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-text-900 hover:text-text-700 block">Assignments</a>
-      <a *ngIf="isLoggedIn()" href="#" class="py-2 px-4 text-text-900 hover:text-text-700 block">Exams</a> -->
+      <a *ngIf="isLoggedIn()" href="/home-page" class="py-2 px-4 text-text-900 hover:text-text-700 block">Dashboard</a>
+      <a *ngIf="isLoggedIn()" href="/courses-page" class="py-2 px-4 text-text-900 hover:text-text-700 block">Courses</a>
+      <a *ngIf="isLoggedIn()" href="/schedule-page" class="py-2 px-4 text-text-900 hover:text-text-700 block">Schedule</a>
+      <a *ngIf="isLoggedIn()" href="/tools-page" class="py-2 px-4 text-text-900 hover:text-text-700 block">Tools</a>
       <a
         *ngIf="isLoggedIn()"
         href="/profile-page"

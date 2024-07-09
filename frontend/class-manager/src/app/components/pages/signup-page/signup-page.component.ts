@@ -1,8 +1,5 @@
 import {
   Component,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
   inject,
   OnInit,
 } from '@angular/core';
