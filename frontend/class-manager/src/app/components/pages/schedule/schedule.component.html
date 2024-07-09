@@ -1,7 +1,109 @@
 <div class="flex min-h-screen flex-col bg-background-50 text-text-900">
-  <main class="flex-1 bg-background-50 p-10 text-text-900">
-    <div class="welcome-container mb-10 text-center">
-      <h1 class="mb-4 text-4xl font-bold">Schedule</h1>
+  <main class="flex-1 pt-10 pb-10 pl-3 pr-3">
+    <div class="mx-auto flex justify-between mb-4 items-center">
+      <div>
+        <button pButton pRipple icon="pi pi-chevron-left" class="p-button-text" (click)="prevPeriod()"></button>
+        <div class="text-xl font-bold mx-4 inline-block">{{ currentPeriodLabel }}</div>
+        <button pButton pRipple icon="pi pi-chevron-right" class="p-button-text" (click)="nextPeriod()"></button>
+      </div>
+      <div>
+        <p-dropdown [options]="viewOptions" [(ngModel)]="view" (onChange)="onViewChange($event)"></p-dropdown>
+      </div>
     </div>
+
+    <div class="mx-auto bg-white shadow-lg rounded-lg overflow-hidden" *ngIf="view === 'month'">
+      <div class="grid grid-cols-7 gap-2 p-4 bg-background-200">
+        <div *ngFor="let day of daysOfWeek" class="text-center font-bold">{{ day }}</div>
+      </div>
+      <div class="grid grid-cols-7 p-4">
+        <div *ngFor="let day of calendarDays" class="p-2 border border-gray-300 relative h-32 overflow-hidden">
+          <div class="absolute top-2 right-2 font-bold text-text-700" [ngClass]="{ 'bg-background-500 text-white rounded-full px-3 py-1': currentDate.getDate() === day.date }">{{ day.date }}</div>
+          <div class="mt-8">
+            <div *ngFor="let event of day.events; let i = index" [ngClass]="{'hidden': !day.showMore && i >= 2}" (click)="openEventDialog(event)" [ngStyle]="{'height': event.datetime.getTime() === event.endDatetime.getTime() ? 'auto' : ''}" [class]="event.eventType === 'Scheduled' ? 'bg-blue-200 text-blue-900 border-blue-300' : 'bg-red-200 text-red-900 border-red-300'" [ngClass]="' px-2 py-1 rounded overflow-hidden mb-1 cursor-pointer border min-h-[2rem]'">
+              {{ event.title }}
+            </div>
+            <button *ngIf="day.events.length > 2 && !day.showMore" (click)="toggleMore(day)" class="text-blue-500 mt-2">Show More</button>
+            <button *ngIf="day.showMore" (click)="toggleMore(day)" class="text-blue-500 mt-2">Show Less</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto bg-white shadow-lg rounded-lg overflow-hidden" *ngIf="view === 'week'" #weekContainer>
+      <div class="grid grid-cols-8 gap-2 p-4 bg-background-200">
+        <div class="text-center font-bold" style="width: 100px;">Time</div>
+        <div *ngFor="let day of daysOfWeek" class="text-center font-bold">{{ day }}</div>
+      </div>
+      <div class="grid grid-cols-8 gap-2 relative h-96 overflow-y-auto" #eventsContainer>
+        <div class="relative col-span-1" style="width: 100px;">
+          <div *ngFor="let hour of hours" class="p-2 border-b border-gray-300 text-right h-16">
+            {{ hour }}
+          </div>
+        </div>
+        <div *ngFor="let day of weekDays" class="relative col-span-1 border-l border-gray-300">
+          <div *ngFor="let event of day.events" [ngStyle]="{'top': getEventTop(event), 'height': event.datetime.getTime() === event.endDatetime.getTime() ? 'auto' : getEventHeight(event)}" (click)="openEventDialog(event)" [class]="event.eventType === 'Scheduled' ? 'bg-blue-200 text-blue-900 border-blue-300' : 'bg-red-200 text-red-900 border-red-300'" [ngClass]="' px-2 py-1 rounded mb-1 absolute overflow-hidden shadow-md cursor-pointer border min-h-[2rem] w-[calc(100%-16px)] ml-2 mr-2'">
+            {{ event.title }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto bg-white shadow-lg rounded-lg overflow-hidden" *ngIf="view === '3-day'" #threeDayContainer>
+      <div class="grid grid-cols-4 gap-2 p-4 bg-background-200">
+        <div class="text-center font-bold" style="width: 100px;">Time</div>
+        <div *ngFor="let day of threeDayViewDays" class="text-center font-bold">{{currentMonth}} {{day.date}}</div>
+      </div>
+      <div class="grid grid-cols-4 gap-2 relative h-96 overflow-y-auto" #eventsContainer3Day>
+        <div class="relative col-span-1" style="width: 100px;">
+          <div *ngFor="let hour of hours" class="p-2 border-b border-gray-300 text-right h-16">
+            {{ hour }}
+          </div>
+        </div>
+        <div *ngFor="let day of threeDayViewDays" class="relative col-span-1 border-l border-gray-300">
+          <div *ngFor="let event of day.events" [ngStyle]="{'top': getEventTop(event), 'height': event.datetime.getTime() === event.endDatetime.getTime() ? 'auto' : getEventHeight(event)}" (click)="openEventDialog(event)" [class]="event.eventType === 'Scheduled' ? 'bg-blue-200 text-blue-900 border-blue-300' : 'bg-red-200 text-red-900 border-red-300'" [ngClass]="' px-2 py-1 rounded mb-1 absolute overflow-hidden shadow-md cursor-pointer border min-h-[2rem] w-[calc(100%-16px)] ml-2 mr-2'">
+            {{ event.title }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto bg-white shadow-lg rounded-lg overflow-hidden" *ngIf="view === 'day'" #dayContainer>
+      <div class="grid grid-cols-2 gap-2 p-4 bg-background-200">
+        <div class="text-center font-bold" style="width: 100px;">Time</div>
+        <div class="text-center font-bold">{{ currentDate | date: 'fullDate' }}</div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 relative h-96 overflow-y-auto" #eventsContainerDay>
+        <div class="relative col-span-1" style="width: 100px;">
+          <div *ngFor="let hour of hours" class="p-2 border-b border-gray-300 text-right h-16">
+            {{ hour }}
+          </div>
+        </div>
+        <div class="relative col-span-1 border-l border-gray-300">
+          <div *ngFor="let event of dayViewEvents" [ngStyle]="{'top': getEventTop(event), 'height': event.datetime.getTime() === event.endDatetime.getTime() ? 'auto' : getEventHeight(event)}" (click)="openEventDialog(event)" [class]="event.eventType === 'Scheduled' ? 'bg-blue-200 text-blue-900 border-blue-300' : 'bg-red-200 text-red-900 border-red-300'" [ngClass]="' px-2 py-1 rounded mb-1 absolute overflow-hidden shadow-md cursor-pointer border min-h-[2rem] w-[calc(100%-16px)] ml-2 mr-2'">
+            {{ event.title }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-dialog header="Event Details" [(visible)]="eventDialogVisible" [modal]="true" [closable]="true" class="w-full md:w-1/2 lg:w-1/3">
+      <div *ngIf="selectedEvent">
+        <div *ngIf="selectedEvent.eventType === 'Scheduled'">
+          <p><strong>Title:</strong> {{ selectedEvent.title }}</p>
+          <p><strong>Description:</strong> {{ selectedEvent.description }}</p>
+          <p><strong>Location:</strong> {{ selectedEvent.location }}</p>
+          <p><strong>Start Time:</strong> {{ selectedEvent.datetime | date:'shortTime' }}</p>
+          <p><strong>End Time:</strong> {{ selectedEvent.endDatetime | date:'shortTime' }}</p>
+          <p><strong>Completed:</strong> {{ selectedEvent.isComplete ? 'Yes' : 'No' }}</p>
+        </div>
+        <div *ngIf="selectedEvent.eventType === 'Weighted'">
+          <p><strong>Title:</strong> {{ selectedEvent.title }}</p>
+          <p><strong>Description:</strong> {{ selectedEvent.description }}</p>
+          <p><strong>Due Date:</strong> {{ selectedEvent.dueDate | date:'short' }}</p>
+          <p><strong>Weight:</strong> {{ selectedEvent.weight }}%</p>
+          <p><strong>Completed:</strong> {{ selectedEvent.isComplete ? 'Yes' : 'No' }}</p>
+        </div>
+      </div>
+    </p-dialog>    
   </main>
 </div>

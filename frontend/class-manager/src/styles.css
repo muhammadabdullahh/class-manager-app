@@ -4,7 +4,7 @@
 @import "tailwindcss/components.css" layer(tw-components);
 @import "tailwindcss/utilities.css" layer(tw-utilities);
 
-@import "primeng/resources/themes/saga-green/theme.css";
+@import "primeng/resources/themes/aura-light-blue/theme.css";
 @import "primeicons/primeicons.css";
 
 @import "theme.css";
