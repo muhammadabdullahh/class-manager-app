@@ -41,7 +41,7 @@
       <div *ngIf="courses.length > 0; else noCoursesTemplate">
         <p-carousel [value]="courses" [numVisible]="3" [numScroll]="3" [circular]="true">
           <ng-template pTemplate="item" let-course>
-            <a href="#" class="relative rounded-lg bg-background-100 p-6 shadow-lg min-w-[300px] hover:bg-background-200 transition-colors block m-2">
+            <a href="#" class="relative rounded-lg bg-background-100 p-6 shadow-lg min-w-[300px] hover:bg-background-200 transition-colors block m-2 h-full">
               <h3 class="mb-2 text-2xl font-bold">{{ course.courseName }}</h3>
               <p>Instructor: {{ course.instructorName }}</p>
               <p>Course Code: {{ course.courseCode }}</p>
