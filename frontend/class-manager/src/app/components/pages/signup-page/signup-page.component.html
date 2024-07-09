@@ -1,15 +1,25 @@
-<div class="signup-bg flex min-h-screen flex-col justify-center bg-background-100 px-6 pb-24 sm:px-6 lg:px-8">
+<div
+  class="signup-bg flex min-h-screen flex-col justify-center bg-background-100 px-6 pb-24 sm:px-6 lg:px-8"
+>
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
     <div class="bg-background-50 px-4 py-8 shadow sm:rounded-lg sm:px-10">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <img class="mx-auto mb-8 h-10 w-auto" src="https://www.svgrepo.com/show/301692/login.svg" alt="Workflow" />
-        <h2 class="mt-6 text-center text-3xl font-extrabold leading-9 text-text-900">
+        <img
+          class="mx-auto h-10 w-auto"
+          src="https://www.svgrepo.com/show/301692/login.svg"
+          alt="Workflow"
+        />
+        <h2
+          class="mt-2 text-center text-3xl font-extrabold leading-9 text-text-900"
+        >
           Create a new account
         </h2>
         <p class="max-w mt-2 text-center text-sm leading-5 text-primary-700">
           Or
-          <a href="/login-page"
-            class="font-medium text-primary-700 transition duration-150 ease-in-out hover:text-primary-500 focus:underline focus:outline-none">
+          <a
+            href="/login-page"
+            class="font-medium text-primary-700 transition duration-150 ease-in-out hover:text-primary-500 focus:underline focus:outline-none"
+          >
             login to your account
           </a>
         </p>
@@ -17,11 +27,23 @@
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
         <div>
-          <label for="fullName" class="block text-sm font-medium leading-5 text-text-700">Name</label>
+          <label
+            for="fullName"
+            class="block text-sm font-medium leading-5 text-text-700"
+            >Name</label
+          >
           <div class="relative mt-1 rounded-md shadow-sm">
-            <input id="fullName" formControlName="fullName" placeholder="John Doe" type="text"
-              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
-            <div *ngIf="submitted && f['fullName'].errors" class="mt-1 text-xs text-red-500">
+            <input
+              id="fullName"
+              formControlName="fullName"
+              placeholder="John Doe"
+              type="text"
+              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5"
+            />
+            <div
+              *ngIf="submitted && f['fullName'].errors"
+              class="mt-1 text-xs text-red-500"
+            >
               <div *ngIf="f['fullName'].errors['required']">
                 Name is required
               </div>
@@ -29,12 +51,24 @@
           </div>
         </div>
 
-        <div class="mt-6">
-          <label for="email" class="block text-sm font-medium leading-5 text-text-700">Email address</label>
+        <div class="mt-2">
+          <label
+            for="email"
+            class="block text-sm font-medium leading-5 text-text-700"
+            >Email address</label
+          >
           <div class="relative mt-1 rounded-md shadow-sm">
-            <input id="email" formControlName="email" placeholder="user@example.com" type="email"
-              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
-            <div *ngIf="submitted && f['email'].errors" class="mt-1 text-xs text-red-500">
+            <input
+              id="email"
+              formControlName="email"
+              placeholder="user@example.com"
+              type="email"
+              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5"
+            />
+            <div
+              *ngIf="submitted && f['email'].errors"
+              class="mt-1 text-xs text-red-500"
+            >
               <div *ngIf="f['email'].errors['required']">Email is required</div>
               <div *ngIf="f['email'].errors['email']">
                 Email must be a valid email address
@@ -43,12 +77,23 @@
           </div>
         </div>
 
-        <div class="mt-6">
-          <label for="password" class="block text-sm font-medium leading-5 text-text-700">Password</label>
+        <div class="mt-2">
+          <label
+            for="password"
+            class="block text-sm font-medium leading-5 text-text-700"
+            >Password</label
+          >
           <div class="mt-1 rounded-md shadow-sm">
-            <input id="password" formControlName="password" type="password"
-              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
-            <div *ngIf="submitted && f['password'].errors" class="mt-1 text-xs text-red-500">
+            <input
+              id="password"
+              formControlName="password"
+              type="password"
+              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5"
+            />
+            <div
+              *ngIf="submitted && f['password'].errors"
+              class="mt-1 text-xs text-red-500"
+            >
               <div *ngIf="f['password'].errors['required']">
                 Password is required
               </div>
@@ -67,13 +112,23 @@
           </div>
         </div>
 
-        <div class="mt-6">
-          <label for="confirmPassword" class="block text-sm font-medium leading-5 text-text-700">Confirm
-            Password</label>
+        <div class="mt-2">
+          <label
+            for="confirmPassword"
+            class="block text-sm font-medium leading-5 text-text-700"
+            >Confirm Password</label
+          >
           <div class="mt-1 rounded-md shadow-sm">
-            <input id="confirmPassword" formControlName="confirmPassword" type="password"
-              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5" />
-            <div *ngIf="submitted && f['confirmPassword'].errors" class="mt-1 text-xs text-red-500">
+            <input
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              type="password"
+              class="focus:shadow-outline-primary block w-full appearance-none rounded-md border border-text-300 bg-background-50 px-3 py-2 text-text-900 placeholder-text-400 transition duration-150 ease-in-out focus:border-text-500 focus:outline-none sm:text-sm sm:leading-5"
+            />
+            <div
+              *ngIf="submitted && f['confirmPassword'].errors"
+              class="mt-1 text-xs text-red-500"
+            >
               <div *ngIf="f['confirmPassword'].errors['required']">
                 Confirm Password is required
               </div>
@@ -86,8 +141,10 @@
 
         <div class="mt-8">
           <span class="block w-full rounded-md shadow-sm">
-            <button type="submit"
-              class="focus:shadow-outline-indigo flex w-full justify-center rounded-md border border-transparent bg-primary-500 px-4 py-2 text-sm font-medium text-text-50 transition duration-150 ease-in-out hover:bg-primary-500 focus:border-indigo-700 focus:outline-none active:bg-indigo-700 dark:text-text-950">
+            <button
+              type="submit"
+              class="focus:shadow-outline-indigo flex w-full justify-center rounded-md border border-transparent bg-primary-500 px-4 py-2 text-sm font-medium text-text-50 transition duration-150 ease-in-out hover:bg-primary-500 focus:border-indigo-700 focus:outline-none active:bg-indigo-700 dark:text-text-950"
+            >
               Create account
             </button>
           </span>
